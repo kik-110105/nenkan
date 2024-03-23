@@ -1,0 +1,43 @@
+{% load static %}
+<html lang="ja">
+    <head> 
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <title>{{ title }}</title>
+    </head>
+    
+    <body>
+        <header>
+            <div id="wrapper">
+            </div>
+        </header>
+
+        <div id="main">
+            <div style="background: greenyellow">
+                <p class="hello">Android</p>
+                <h1>8ch.</h1>
+            </div>
+            {% if object_list is not null %}
+                <div id="newtoukou">         
+                    <h3>最新スレッド</h3>
+                    {% for thread in object_list reversed %}
+                        {% if 3 >= forloop.counter %}
+                            <div>
+                                {{ thread.time }}<br>
+                                <a href="/eightch/{{ thread.id }}/">・{{ thread.title }}</a>
+                            </div><br>
+                        {% endif %} 
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block title %}
+            {% endblock %}
+
+            <p>────────────────────────</p>
+            {% block content %}
+            {% endblock %}
+
+        </div>
+    </body>
+</html>

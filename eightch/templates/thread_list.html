@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+<div>
+  {% block title %}
+    <h1>投稿一覧</h1>
+  {% endblock %}
+
+  {% block content %}
+  {% for thread in object_list %}
+    <div>
+      <a href="/eightch/{{ thread.id }}/">・{{ thread.title }}</a></br>投稿者:
+      {{thread.username}}</br>
+      {{thread.time}}</br>
+    </div><br>
+  {% endfor %}
+</div>
+  <br><a href="/eightch/">TOPページに戻る</a>
+  {% endblock %}

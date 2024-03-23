@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+<div>
+    {% block title %}
+    {% endblock %}
+  
+    {% block content %}
+    <h2>スレッド投稿ブース</h2>
+    <form method="POST" action="thread_ok/">
+      {% csrf_token %}
+      {% for field in form %}
+        <div>{{field.label_tag}} {{field}} {{field.errors}}</div>
+      {% endfor %}
+      <button type="submit">送信</button>
+    </form>
+  </div>
+  <a href="/eightch/">戻る</a>
+    {% endblock %}

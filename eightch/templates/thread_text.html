@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% load static %}
+<ul>
+<div>
+    {% block title %}
+    {% endblock %}
+
+    {% block content %}
+        <div>
+            {{ object.title }}<br>
+            投稿者:{{ object.username }}<br>
+            投稿日:{{ object.time }}<br>
+        </div>
+        <div>
+            {% for toukou in object_list2 %}
+                {% if toukou.thread_id == object.id %}
+                    {% if toukou.delete_TF == False %}
+
+                        <br>{{ toukou.toukou_id }}:<br>
+                        投稿者:{{ toukou.username }}:{{ toukou.time }}<br>
+                        {{ toukou.text | linebreaksbr  }}<br>
+
+                        {% if toukou.image != "" %}
+                            <img src="/media/{{toukou.image}}" width = 300px height = auto /><br>
+                        {% endif %}
+
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <h2>──────────レスはここまで──────────</h2>
+
+        <form method="POST" action="toukou_ok/" enctype="multipart/form-data">
+            {% csrf_token %}
+            投稿者:{{form.username}}<br>
+            投稿日:{{form.time}}<br>
+            本　文:{{form.text}}<br>
+            <input type="file" id="image" name="image" accept="image/png, image/jpeg" /><br>
+            <input type="hidden" name="threadid" value={{threadid}}>
+            <button type="submit">送信</button>
+        </form>
+
+        <a href="/eightch/">TOPページに戻る</a>
+    {% endblock %}
+</div><br>
+</ul>
